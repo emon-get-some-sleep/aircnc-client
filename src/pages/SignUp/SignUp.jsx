@@ -56,7 +56,10 @@ const SignUp = () => {
             createUser(email, password)
             .then(result => {
                 
-                updateUserProfile(name, imgURL);
+                updateUserProfile(name, imgURL)
+                .then(() => {
+                  toast.success('Sign Up Successfully')
+                })
                 console.log(result.user)
                 navigate(from, {replace: true});
             })
