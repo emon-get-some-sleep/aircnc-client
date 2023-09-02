@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { FcGoogle } from 'react-icons/fc'
 import { useContext, useRef } from 'react'
@@ -7,6 +7,8 @@ import { toast } from 'react-hot-toast'
 import { TbFidgetSpinner } from 'react-icons/tb'
 
 const Login = () => {
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate();
     const emailRef = useRef();
     const {  
@@ -27,7 +29,7 @@ const Login = () => {
         signIn(email, password)
         .then(result => {
           console.log(result.user);
-          navigate('/');
+          navigate(from, {replace: true});
       })
       .catch(err => {
           setLoading(false);
@@ -39,7 +41,10 @@ const Login = () => {
 
      const handleReset = () => {
       const email = emailRef.current.value;
-      console.log(email);
+      resetPassword(email)
+      .then(() => {
+        toast.success('Please check your email for reset link')
+      })
      }
 
      // handle google sign in
@@ -47,7 +52,7 @@ const Login = () => {
         signInWithGoogle()
         .then(result => {
             console.log(result.user);
-            navigate('/');
+            navigate(from, {replace: true});
         })
         .catch(err => {
             setLoading(false);
