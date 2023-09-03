@@ -16,11 +16,17 @@ const Rooms = ({}) => {
         fetch('./rooms.json')
         .then(res => res.json())
         .then(data => {
-            setRooms(data);
+            if(category){
+                const filtered = data.filter(room => room.category == category);
+                setRooms(filtered);
+            }
+            else{
+                setRooms(data);
+            }
             setLoading(false);
         })
         .catch(err => console.log(err))
-    }, [])
+    }, [category])
     // console.log(rooms);
    
 

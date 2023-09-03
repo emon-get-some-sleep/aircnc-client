@@ -4,8 +4,8 @@ import qs from 'query-string';
 const CategoriyBox = ({label, icon:Icon}) => {
     const navigate = useNavigate();
     const [params, setParams] = useSearchParams();
-    const value = params.get('category');
-    console.log(value);
+    
+    
     const handleClick = () => {
         let currentQuery = {};
         if(params){
@@ -27,7 +27,7 @@ const CategoriyBox = ({label, icon:Icon}) => {
         navigate(url)
     }
     return (
-        <div onClick={handleClick} className='flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 border-transparent text-neutral-500'>
+        <div onClick={handleClick} className='flex cursor-pointer flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 border-transparent text-neutral-500'>
             <Icon size={26} />
             <div className='text-sm font-medium'>{label}</div>
         </div>
